@@ -12,7 +12,8 @@ from .models import Videos
 from django.shortcuts import get_object_or_404
 import datetime
 from uuid import uuid4
-from users.models import NewUser, Profile
+from users.models import Profile
+from django.contrib.auth.models import User
 
 
 # Create your views here.
@@ -46,7 +47,7 @@ class VideoCreateView(APIView):
     def post(self, request, format=None):
         title = request.data['title']
         description = request.data['description']
-        auhtor = get_object_or_404(NewUser, user_name=request.data['Author'])
+        auhtor = get_object_or_404(User, username=request.data['Author'])
         ProfileItems = get_object_or_404(Profile, id=request.data['Profile'])
 
         
@@ -78,7 +79,7 @@ class VideoUpdateView(APIView):
     def post(self, request, pk, format=None):
         title = request.data['title']
         description = request.data['description']
-        auhtor = get_object_or_404(NewUser, user_name=request.data['Author'])
+        auhtor = get_object_or_404(User, username=request.data['Author'])
         ProfileItems = get_object_or_404(Profile, id=request.data['Profile'])
         video = get_object_or_404(Videos, id=pk)
         
@@ -123,7 +124,7 @@ class DashbordVideoView(APIView):
     def post(self, request):
         #get the posts filtered by username
         prof = request.data['name']
-        posts = Videos.objects.filter(ProfileItems__user__user_name=prof)
+        posts = Videos.objects.filter(ProfileItems__user__username=prof)
 
         serilizer = VideoSerializer(posts, many=True)
         return Response(serilizer.data)

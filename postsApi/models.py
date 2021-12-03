@@ -4,7 +4,8 @@ from django.utils import timezone
 import readtime
 from PIL import Image as IMG
 import math
-from users.models import Profile, NewUser
+from django.contrib.auth.models import User
+from users.models import Profile
 
 
 # Create your models here.
@@ -29,7 +30,7 @@ class Image(models.Model):
 
 class Replyes(models.Model):
     name = models.CharField(max_length=1000, default="Image Name")
-    users = models.ForeignKey(NewUser, on_delete=models.CASCADE, default=0)
+    users = models.ForeignKey(User, on_delete=models.CASCADE, default=0)
     ProfileItems = models.ForeignKey(Profile, on_delete=models.CASCADE)
     description = models.TextField(default="Body")
     pub_date = models.DateTimeField(auto_now_add= True)
@@ -44,7 +45,7 @@ class Replyes(models.Model):
 
 class Comments(models.Model):
     name = models.CharField(max_length=1000, default="Image Name")
-    users = models.ForeignKey(NewUser, on_delete=models.CASCADE, default=0)
+    users = models.ForeignKey(User, on_delete=models.CASCADE, default=0)
     ProfileItems = models.ForeignKey(Profile, on_delete=models.CASCADE)
     description = models.TextField(default="Body")
     pub_date = models.DateTimeField(auto_now_add= True)
@@ -73,7 +74,7 @@ class Post(models.Model):
     last_edited= models.DateTimeField(auto_now= True)
     auhtor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=0)
     ProfileItems = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    likes = models.ManyToManyField(NewUser, related_name='likes', null=True, blank=True,)
+    likes = models.ManyToManyField(User, related_name='likes', null=True, blank=True,)
     comments = models.ManyToManyField(Comments, related_name='Comments', null=True, blank=True,)
 
     class Meta:

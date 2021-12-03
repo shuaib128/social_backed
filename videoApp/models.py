@@ -3,7 +3,8 @@ from django.conf import settings
 from django.core.validators import FileExtensionValidator
 from PIL import Image as IMG
 from django.utils import timezone
-from users.models import Profile, NewUser
+from users.models import Profile
+from django.contrib.auth.models import User
 import math
 
 # Create your models here.

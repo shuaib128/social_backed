@@ -1,7 +1,8 @@
 from django.db.models import fields
 from rest_framework import serializers
 from .models import Post, Image, Comments, Replyes
-from users.models import Profile, NewUser
+from django.contrib.auth.models import User
+from users.models import Profile
 
 
 # Post Serelizer
@@ -32,18 +33,18 @@ class ImageSerializer(serializers.ModelSerializer):
 
 class LikedUsersSerilizer(serializers.ModelSerializer):
     class Meta:
-        model = NewUser
+        model = User
         fields = (
             'id',
-            'user_name'
+            'username'
         )
 
 class CommentUsersSerilizer(serializers.ModelSerializer):
     class Meta:
-        model = NewUser
+        model = User
         fields = (
             'id',
-            'user_name'
+            'username'
         )
 
 

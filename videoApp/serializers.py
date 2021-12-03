@@ -1,7 +1,8 @@
+from django.contrib.auth.models import User
 from rest_framework import serializers
 from .models import Videos
-from users.models import Profile, NewUser
-
+from users.models import Profile
+from django.contrib.auth.models import User
 
 # Post Serelizer
 class ProfileSerializer(serializers.ModelSerializer):
@@ -23,10 +24,10 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 class UsersSerilizer(serializers.ModelSerializer):
     class Meta:
-        model = NewUser
+        model = User
         fields = (
             'id',
-            'user_name'
+            'username'
         )
 
 
